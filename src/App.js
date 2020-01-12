@@ -8,14 +8,18 @@ function App() {
     setText(value);
   }
 
-  console.log(text);
+  function countWords(text) {
+    const wordsArr = text.trim().split(" ");
+    console.log(wordsArr.length);
+    return wordsArr.filter(word => word !== "").length;
+  }
 
   return (
     <div>
       <h1>Speed Typing Challenge</h1>
       <textarea onChange={handleChange} value={text} />
       <h4>Time remaining: ??? seconds</h4>
-      <button>Start</button>
+      <button onClick={() => countWords(text)}>Start</button>
       <h1>Word Count: ??? words</h1>
     </div>
   );
