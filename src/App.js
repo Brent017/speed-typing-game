@@ -17,14 +17,24 @@ function App() {
     return wordsArr.filter(word => word !== "").length;
   }
 
+  function startGame() {
+    setIsStarted(true);
+    setTimer(5);
+    setText("");
+  }
+
+  function endGame() {
+    setIsStarted(false);
+    setWordCount(countWords(text));
+  }
+
   useEffect(() => {
     if (isStarted && timer > 0) {
       setTimeout(() => {
         setTimer(time => time - 1);
       }, 1000);
     } else if (timer === 0) {
-      setIsStarted(false);
-      setWordCount(countWords(text));
+      endGame();
     }
   }, [timer, isStarted]);
 
@@ -33,7 +43,7 @@ function App() {
       <h1>Speed Typing Challenge</h1>
       <textarea onChange={handleChange} value={text} />
       <h4>Time remaining: {timer} seconds</h4>
-      <button onClick={() => setIsStarted(true)}>Start</button>
+      <button onClick={startGame}>Start</button>
       <h1>Word Count: {wordCount} words</h1>
     </div>
   );
