@@ -4,6 +4,7 @@ function App() {
   const [text, setText] = useState("");
   const [timer, setTimer] = useState(5);
   const [isStarted, setIsStarted] = useState(false);
+  const [wordCount, setWordCount] = useState(0);
 
   function handleChange(e) {
     const { value } = e.target;
@@ -23,6 +24,7 @@ function App() {
       }, 1000);
     } else if (timer === 0) {
       setIsStarted(false);
+      setWordCount(countWords(text));
     }
   }, [timer, isStarted]);
 
@@ -32,7 +34,7 @@ function App() {
       <textarea onChange={handleChange} value={text} />
       <h4>Time remaining: {timer} seconds</h4>
       <button onClick={() => setIsStarted(true)}>Start</button>
-      <h1>Word Count: ??? words</h1>
+      <h1>Word Count: {wordCount} words</h1>
     </div>
   );
 }
