@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 function App() {
+  const START_TIME = 5;
+
   const [text, setText] = useState("");
-  const [timer, setTimer] = useState(5);
+  const [timer, setTimer] = useState(START_TIME);
   const [isStarted, setIsStarted] = useState(false);
   const [wordCount, setWordCount] = useState(0);
 
@@ -13,13 +15,13 @@ function App() {
 
   function countWords(text) {
     const wordsArr = text.trim().split(" ");
-    console.log(wordsArr.length);
+    // console.log(wordsArr.length);
     return wordsArr.filter(word => word !== "").length;
   }
 
   function startGame() {
     setIsStarted(true);
-    setTimer(5);
+    setTimer(START_TIME);
     setText("");
   }
 
@@ -41,9 +43,11 @@ function App() {
   return (
     <div>
       <h1>Speed Typing Challenge</h1>
-      <textarea onChange={handleChange} value={text} />
+      <textarea onChange={handleChange} disabled={!isStarted} value={text} />
       <h4>Time remaining: {timer} seconds</h4>
-      <button onClick={startGame}>Start</button>
+      <button onClick={startGame} disabled={isStarted}>
+        Start
+      </button>
       <h1>Word Count: {wordCount} words</h1>
     </div>
   );
